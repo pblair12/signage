@@ -54,7 +54,7 @@ class Images extends CI_Controller {
 
         $this->form_validation->set_rules('title', 'Title', 'required');
 
-        $config['upload_path']          = 'C:\\Users\\pblair\\Workspace\\signage\\uploads\\';
+        $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 10000000000;
         $config['max_width']            = 1000;
