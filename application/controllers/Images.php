@@ -29,4 +29,25 @@ class Images extends CI_Controller {
         $this->load->view('images/view', $data);
         $this->load->view('templates/footer');
     }
+
+    public function create() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Create an image';
+
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('path', 'Path', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('images/create');
+            $this->load->view('templates/footer');
+
+        }
+        else {
+            $this->images_model->set_images();
+            $this->load->view('images/success');
+        }
+    }
 }

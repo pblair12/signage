@@ -1,0 +1,1 @@
+<div>Image uploaded successfully!</div>
