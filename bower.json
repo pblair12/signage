@@ -1,0 +1,19 @@
+{
+  "name": "signage",
+  "description": "",
+  "main": "index.php",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-cycle2": "^2.1.6",
+    "jquery": "^3.2.1"
+  }
+}
