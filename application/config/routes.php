@@ -54,6 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['images/create'] = 'images/create';
+$route['images/update'] = 'images/update';
+$route['images/edit/(:any)'] = 'images/edit/$1';
 $route['images/(:any)'] = 'images/view/$1';
 $route['images'] = 'images';
 $route['(:any)'] = 'pages/view/$1';

@@ -14,7 +14,7 @@ class Images_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function set_images() {
+    public function create_image() {
         $this->load->helper('url');
 
         $slug = url_title($this->input->post('title'), 'dash', TRUE);
@@ -26,5 +26,18 @@ class Images_model extends CI_Model {
         );
 
         return $this->db->insert('images', $data);
+    }
+
+    public function update_image($slug = FALSE) {
+        $this->load->helper('url');
+
+        $data = array(
+            'id' => $this->input->post('id'),
+            'title' => $this->input->post('title'),
+            'slug' => $this->input->post('slug'),
+            'path' => $this->input->post('path')
+        );
+
+        return $this->db->replace('images', $data);
     }
 }
