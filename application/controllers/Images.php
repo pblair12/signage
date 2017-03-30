@@ -9,7 +9,7 @@ class Images extends CI_Controller {
 
     public function index() {
         $data['images'] = $this->images_model->get_images();
-        $data['title'] = 'Images';
+        $data['title'] = 'All Images';
 
         $this->load->view('templates/header', $data);
         $this->load->view('images/index', $data);
@@ -18,12 +18,11 @@ class Images extends CI_Controller {
 
     public function view($slug = NULL) {
         $data['images_item'] = $this->images_model->get_images($slug);
+        $data['title'] = 'View image';
 
         if (empty($data['images_item'])) {
             show_404();
         }
-
-        $data['title'] = $data['images_item']['title'];
 
         $this->load->view('templates/header', $data);
         $this->load->view('images/view', $data);
@@ -34,13 +33,13 @@ class Images extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
+        $data['title'] = 'Update image';
+
         $data['images_item'] = $this->images_model->get_images($slug);
 
         if (empty($data['images_item'])) {
             show_404();
         }
-
-        $data['title'] = $data['images_item']['title'];
 
         $this->load->view('templates/header', $data);
         $this->load->view('images/edit', $data);
@@ -48,22 +47,36 @@ class Images extends CI_Controller {
     }
 
     public function create() {
-        $this->load->helper('form');
+        $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
 
-        $data['title'] = 'Create an image';
+        $data['title'] = 'Create image';
 
         $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('path', 'Path', 'required');
 
-        if ($this->form_validation->run() === FALSE) {
+        $config['upload_path']          = 'C:\\Users\\pblair\\Workspace\\signage\\uploads\\';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 10000000000;
+        $config['max_width']            = 1000;
+        $config['max_height']           = 1000;
+
+        $this->load->library('upload', $config);
+
+        $error = array('error' => '');
+        if ($this->form_validation->run() === FALSE ) {
             $this->load->view('templates/header', $data);
-            $this->load->view('images/create');
+            $this->load->view('images/create', $error);
             $this->load->view('templates/footer');
-
+        }
+        else if (!$this->upload->do_upload('imagefile')) {
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('templates/header', $data);
+            $this->load->view('images/create', $error);
+            $this->load->view('templates/footer');
         }
         else {
-            $this->images_model->create_image();
+            $upload_data = array('upload_data' => $this->upload->data());
+            $this->images_model->create_image($upload_data['upload_data']['full_path']);
             $this->load->view('images/success');
         }
     }
@@ -71,8 +84,6 @@ class Images extends CI_Controller {
     public function update() {
         $this->load->helper('form');
         $this->load->library('form_validation');
-
-        $data['title'] = 'Create an image';
 
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('path', 'Path', 'required');

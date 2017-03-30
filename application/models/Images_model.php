@@ -14,7 +14,7 @@ class Images_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function create_image() {
+    public function create_image($path) {
         $this->load->helper('url');
 
         $slug = url_title($this->input->post('title'), 'dash', TRUE);
@@ -22,7 +22,7 @@ class Images_model extends CI_Model {
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => $slug,
-            'path' => $this->input->post('path')
+            'path' => $path
         );
 
         return $this->db->insert('images', $data);
