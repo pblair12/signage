@@ -1,4 +1,3 @@
 .idea
-imgs/
-uploads/
+uploads/**/*
 bower_components

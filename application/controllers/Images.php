@@ -55,7 +55,7 @@ class Images extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required');
 
         $config['upload_path']          = './uploads/';
-        $config['allowed_types']        = 'gif|jpg|png';
+        $config['allowed_types']        = 'jpg';
         $config['max_size']             = 10000000000;
         $config['max_width']            = 1000;
         $config['max_height']           = 1000;
@@ -77,7 +77,9 @@ class Images extends CI_Controller {
         else {
             $upload_data = array('upload_data' => $this->upload->data());
             $this->images_model->create_image($upload_data['upload_data']['full_path']);
-            $this->load->view('images/success');
+            $data['action'] = 'created';
+
+            $this->index();
         }
     }
 
@@ -92,11 +94,25 @@ class Images extends CI_Controller {
             $this->load->view('templates/header', $data);
             $this->load->view('images/update');
             $this->load->view('templates/footer');
-
         }
         else {
             $this->images_model->update_image();
+            $data['action'] = 'updated';
+
+            $this->load->view('templates/header', $data);
             $this->load->view('images/success');
+        }
+    }
+
+    public function delete($slug) {
+        if ($this->images_model->delete_image($slug)) {
+            $data['action'] = 'deleted';
+            $this->load->view('templates/header', $data);
+            $this->load->view('images/success', $data);
+        } else {
+            $data['action'] = 'deleted';
+            $this->load->view('templates/header', $data);
+            $this->load->view('images/failed', $data);
         }
     }
 }

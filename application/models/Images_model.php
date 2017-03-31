@@ -40,4 +40,19 @@ class Images_model extends CI_Model {
 
         return $this->db->replace('images', $data);
     }
+
+    public function delete_image($slug) {
+        $this->load->helper('file');
+
+        // get the image properties
+        $image = $this->get_images($slug);
+
+        // delete the image from the filesystem
+        $deleted_from_files = unlink($image['path']);
+
+        // delete the image metadata
+        $deleted_from_db = $this->db->delete('images', array('slug' => $slug));
+
+        return ($deleted_from_files && $deleted_from_db);
+    }
 }

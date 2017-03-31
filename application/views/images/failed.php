@@ -1,0 +1,1 @@
+<p>Image <?php echo $action; ?> failed!</p>

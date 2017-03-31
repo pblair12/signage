@@ -53,10 +53,14 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['screens/(:any)'] = 'screens/view/$1';
+$route['screens'] = 'screens';
+
 $route['images/create'] = 'images/create';
 $route['images/update'] = 'images/update';
+$route['images/delete/(:any)'] = 'images/delete/$1';
 $route['images/edit/(:any)'] = 'images/edit/$1';
-$route['images/(:any)'] = 'images/view/$1';
 $route['images'] = 'images';
+
 $route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'pages/view';
