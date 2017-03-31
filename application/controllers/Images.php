@@ -31,19 +31,39 @@ class Images extends CI_Controller {
 
     public function edit($slug = NULL) {
         $this->load->helper('form');
-        $this->load->library('form_validation');
 
-        $data['title'] = 'Update image';
+        $data['title'] = 'Edit Image';
 
-        $data['images_item'] = $this->images_model->get_images($slug);
+        $data['image'] = $this->images_model->get_images($slug);
 
-        if (empty($data['images_item'])) {
+        if (empty($data['image'])) {
             show_404();
         }
 
         $this->load->view('templates/header', $data);
         $this->load->view('images/edit', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function update() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('full_path', 'Full Path', 'required');
+        $this->form_validation->set_rules('uri_path', 'URI Path', 'required');
+
+        $error = array('error' => '');
+        if ($this->form_validation->run() === FALSE) {
+            $error['title'] = 'Edit Image';
+            $error['action'] = 'update';
+            $this->load->view('templates/header', $data);
+            $this->load->view('pages/failed', $error);
+        }
+        else {
+            $this->images_model->update_image();
+            $this->index();
+        }
     }
 
     public function create() {
@@ -78,30 +98,9 @@ class Images extends CI_Controller {
         }
     }
 
-    public function update() {
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('full_path', 'Full Path', 'required');
-        $this->form_validation->set_rules('uri_path', 'URI Path', 'required');
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('images/update');
-            $this->load->view('templates/footer');
-        }
-        else {
-            $this->images_model->update_image();
-            $this->index();
-        }
-    }
-
     public function delete($slug) {
         if ($this->images_model->delete_image($slug)) {
-            $data['action'] = 'deleted';
-            $this->load->view('templates/header', $data);
-            $this->load->view('pages/success', $data);
+            $this->index();
         } else {
             $data['action'] = 'deleted';
             $this->load->view('templates/header', $data);

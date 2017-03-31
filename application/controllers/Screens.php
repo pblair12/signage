@@ -26,6 +26,44 @@ class Screens extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function edit($slug = NULL) {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Edit Screen';
+
+        $data['screen'] = $this->screens_model->get_screens($slug);
+
+        if (empty($data['screen'])) {
+            show_404();
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('screens/edit', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function update() {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'integer');
+        $this->form_validation->set_rules('orientation', 'Orientation', 'in_list[vertical,horizontal]');
+
+        $error = array('error' => '');
+        if ($this->form_validation->run() === FALSE) {
+            $error['title'] = 'Edit Screen';
+            $error['action'] = 'update';
+            $this->load->view('templates/header', $error);
+            $this->load->view('pages/failed', $error);
+        }
+        else {
+            $this->screens_model->update_screen();
+            $this->index();
+        }
+    }
+
     public function create() {
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
@@ -33,8 +71,8 @@ class Screens extends CI_Controller {
         $data['title'] = 'Create Screen';
 
         $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('orientation', 'Orientation', 'required');
-        $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'required');
+        $this->form_validation->set_rules('orientation', 'Orientation', 'in_list[vertical,horizontal]');
+        $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'integer');
 
         $error = array('error' => '');
         if ($this->form_validation->run() === FALSE ) {
@@ -50,9 +88,7 @@ class Screens extends CI_Controller {
     
     public function delete($slug) {
         if ($this->screens_model->delete_screen($slug)) {
-            $data['action'] = 'deleted';
-            $this->load->view('templates/header', $data);
-            $this->load->view('pages/success', $data);
+            $this->index();
         } else {
             $data['action'] = 'deleted';
             $this->load->view('templates/header', $data);

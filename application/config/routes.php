@@ -54,13 +54,16 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['screens/create'] = 'screens/create';
+$route['screens/update'] = 'screens/update';
+$route['screens/edit/(:any)'] = 'screens/edit/$1';
+$route['screens/delete/(:any)'] = 'screens/delete/$1';
 $route['screens/(:any)'] = 'screens/view/$1';
 $route['screens'] = 'screens';
 
 $route['images/create'] = 'images/create';
 $route['images/update'] = 'images/update';
-$route['images/delete/(:any)'] = 'images/delete/$1';
 $route['images/edit/(:any)'] = 'images/edit/$1';
+$route['images/delete/(:any)'] = 'images/delete/$1';
 $route['images'] = 'images';
 
 $route['(:any)'] = 'pages/view/$1';
