@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['screens/create'] = 'screens/create';
 $route['screens/(:any)'] = 'screens/view/$1';
 $route['screens'] = 'screens';
 

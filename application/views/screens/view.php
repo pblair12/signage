@@ -1,5 +1,5 @@
-<div class="cycle-slideshow" data-cycle-speed="30000">
-    <?php foreach (glob("uploads/*.jpg") as $img): ?>
-        <img src="<?php echo base_url($img); ?>">
+<div class="cycle-slideshow" data-cycle-speed="<?= $screen['image_cycle_speed']; ?>">
+    <?php foreach ($images as $image): ?>
+        <img src="<?php echo base_url($image['uri_path']); ?>">
     <?php endforeach; ?>
 </div>

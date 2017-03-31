@@ -1,8 +1,9 @@
-<?php foreach ($images as $images_item): ?>
-    <h3><?php echo $images_item['title']; ?></h3>
+<p><a href="<?php echo site_url('images/create'); ?>">Create New Image</a></p>
+<?php foreach ($images as $image): ?>
+    <h3><?php echo $image['title']; ?></h3>
     <div class="main">
-        <?php echo $images_item['path']; ?>
-        <a href="<?php echo site_url('images/edit/'.$images_item['slug']); ?>">Edit</a>
-        <a href="<?php echo site_url('images/delete/'.$images_item['slug']); ?>">Delete</a>
+        <img width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
+        <a href="<?= site_url('images/edit/'.$image['slug']); ?>">Edit</a>
+        <a href="<?= site_url('images/delete/'.$image['slug']); ?>">Delete</a>
     </div>
 <?php endforeach; ?>

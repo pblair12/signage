@@ -9,7 +9,7 @@ class Images extends CI_Controller {
 
     public function index() {
         $data['images'] = $this->images_model->get_images();
-        $data['title'] = 'All Images';
+        $data['title'] = 'Manage Images';
 
         $this->load->view('templates/header', $data);
         $this->load->view('images/index', $data);
@@ -50,15 +50,12 @@ class Images extends CI_Controller {
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
 
-        $data['title'] = 'Create image';
+        $data['title'] = 'Create Image';
 
         $this->form_validation->set_rules('title', 'Title', 'required');
 
         $config['upload_path']          = './uploads/';
-        $config['allowed_types']        = 'jpg';
-        $config['max_size']             = 10000000000;
-        $config['max_width']            = 1000;
-        $config['max_height']           = 1000;
+        $config['allowed_types']        = 'gif|jpg|png';
 
         $this->load->library('upload', $config);
 
@@ -76,9 +73,7 @@ class Images extends CI_Controller {
         }
         else {
             $upload_data = array('upload_data' => $this->upload->data());
-            $this->images_model->create_image($upload_data['upload_data']['full_path']);
-            $data['action'] = 'created';
-
+            $this->images_model->create_image($upload_data['upload_data']['full_path'], $config['upload_path'] . $upload_data['upload_data']['file_name']);
             $this->index();
         }
     }
@@ -88,7 +83,8 @@ class Images extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('path', 'Path', 'required');
+        $this->form_validation->set_rules('full_path', 'Full Path', 'required');
+        $this->form_validation->set_rules('uri_path', 'URI Path', 'required');
 
         if ($this->form_validation->run() === FALSE) {
             $this->load->view('templates/header', $data);
@@ -97,10 +93,7 @@ class Images extends CI_Controller {
         }
         else {
             $this->images_model->update_image();
-            $data['action'] = 'updated';
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('images/success');
+            $this->index();
         }
     }
 
@@ -108,11 +101,11 @@ class Images extends CI_Controller {
         if ($this->images_model->delete_image($slug)) {
             $data['action'] = 'deleted';
             $this->load->view('templates/header', $data);
-            $this->load->view('images/success', $data);
+            $this->load->view('pages/success', $data);
         } else {
             $data['action'] = 'deleted';
             $this->load->view('templates/header', $data);
-            $this->load->view('images/failed', $data);
+            $this->load->view('pages/failed', $data);
         }
     }
 }

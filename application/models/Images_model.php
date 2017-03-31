@@ -14,7 +14,7 @@ class Images_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function create_image($path) {
+    public function create_image($full_path, $uri_path) {
         $this->load->helper('url');
 
         $slug = url_title($this->input->post('title'), 'dash', TRUE);
@@ -22,7 +22,8 @@ class Images_model extends CI_Model {
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => $slug,
-            'path' => $path
+            'full_path' => $full_path,
+            'uri_path' => $uri_path
         );
 
         return $this->db->insert('images', $data);
@@ -35,7 +36,8 @@ class Images_model extends CI_Model {
             'id' => $this->input->post('id'),
             'title' => $this->input->post('title'),
             'slug' => $this->input->post('slug'),
-            'path' => $this->input->post('path')
+            'full_path' => $this->input->post('full_path'),
+            'uri_path' => $this->input->post('uri_path')
         );
 
         return $this->db->replace('images', $data);
@@ -48,7 +50,7 @@ class Images_model extends CI_Model {
         $image = $this->get_images($slug);
 
         // delete the image from the filesystem
-        $deleted_from_files = unlink($image['path']);
+        $deleted_from_files = unlink($image['full_path']);
 
         // delete the image metadata
         $deleted_from_db = $this->db->delete('images', array('slug' => $slug));

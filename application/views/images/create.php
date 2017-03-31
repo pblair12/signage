@@ -6,12 +6,10 @@
 
     <label for="title">Title</label>
     <input type="input" name="title" /><br />
-
-    <label for="title">Image File</label>
-    <input type="file" name="imagefile" size="200" /><br/>
-
-    <input type="submit" name="submit" value="Create image item" />
-
+    <br/>
+    <label for="title">File</label>
+    <input type="file" name="imagefile" /><br/>
+    <br/>
+    <input type="submit" name="submit" value="Create Image" />
+    <br/>
 </form>
-
-<p><a href="<?php echo site_url('images/'); ?>">View all images</a></p>
