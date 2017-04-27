@@ -1,4 +1,6 @@
-## Clear Edge IT Solutions - Sinage Web App
+## Sinage Web App
+
+#### Clear Edge IT Solutions, LLC
 
 Manages screens and images
 
