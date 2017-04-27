@@ -5,6 +5,7 @@ class Screens extends CI_Controller {
         parent::__construct();
         $this->load->model('screens_model');
         $this->load->model('images_model');
+        $this->load->model('images_screens_model');
         $this->load->helper('url_helper');
     }
 
@@ -33,6 +34,13 @@ class Screens extends CI_Controller {
         $data['title'] = 'Edit Screen';
 
         $data['screen'] = $this->screens_model->get_screens($slug);
+
+        $images_screens = $this->images_screens_model->get_images_screens_by_screen_id($data['screen']['id']);
+        $image_ids = array();
+        foreach ($images_screens as $image_screen) {
+            array_push($image_ids, $image_screen['image_id']);
+        }
+        $data['images'] = $this->images_model->get_images_by_ids($image_ids);
 
         if (empty($data['screen'])) {
             show_404();

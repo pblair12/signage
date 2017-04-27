@@ -14,6 +14,11 @@ class Images_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function get_images_by_ids($ids) {
+        $query = $this->db->get_where('images', array('id' => $ids));
+        return $query->row_array();
+    }
+
     public function create_image($full_path, $uri_path) {
         $this->load->helper('url');
 

@@ -3,6 +3,7 @@ class Screens_model extends CI_Model {
 
     public function __construct() {
         $this->load->database();
+        $this->load->model('images_model');
     }
 
     public function get_screens($slug = FALSE) {
