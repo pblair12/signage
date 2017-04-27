@@ -1,12 +1,20 @@
-Install dependencies
+h2 Clear Edge IT Solutions - Sinage Web App
+
+Manages screens and images
+
+h2 Developer Notes
+
+This app was built using the [PHP CodeIgniter Web Framework](https://codeigniter.com/)
+
+h3 Install dependencies
 
     bower install
 
-Run the app
+h3 Run the app
 
     php -c php.ini -S localhost:8000 --ini
 
-Create the database
+h3 Create the database
 
     CREATE TABLE `images` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -27,3 +35,7 @@ Create the database
       PRIMARY KEY (`id`),
       KEY slug (slug)
     );
+
+h3 TO DO
+1) Associate specific images with specific screens, possibly only allow horizontal images to go on horizontal screens and same for vertical.
+2) Update the app with Clear Edge style sheets.
