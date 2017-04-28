@@ -16,8 +16,18 @@
 
     <input type="submit" name="submit" value="Update screen item" />
 
-    <?php foreach ($images as $image): ?>
-        <h3><?php echo $image['title']; ?></h3>
+    <h3>Available Images</h3>
+    <?php foreach ($available_images as $image): ?>
+        <label><?php echo $image['title']; ?></label>
+        <div class="main">
+            <img width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
+            <a href="<?= site_url('images_screens/create/'.$image['id'].'/'.$screen['id']); ?>">Add</a>
+        </div>
+    <?php endforeach; ?>
+
+    <h3>Selected Images</h3>
+    <?php foreach ($selected_images as $image): ?>
+        <label><?php echo $image['title']; ?></label>
         <div class="main">
             <img width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
             <a href="<?= site_url('images_screens/delete/'.$image['id'].'/'.$screen['id']); ?>">Remove</a>

@@ -20,7 +20,9 @@ class Screens extends CI_Controller {
 
     public function view($slug = NULL) {
         $data['screen'] = $this->screens_model->get_screens($slug);
-        $data['images'] = $this->images_model->get_images();
+
+        $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($data['screen']['id']);
+        $data['selected_images'] = $this->images_model->get_images_by_ids($image_ids);
 
         $this->load->view('templates/refresh_header');
         $this->load->view('screens/view', $data);
@@ -36,7 +38,8 @@ class Screens extends CI_Controller {
         $data['screen'] = $this->screens_model->get_screens($slug);
 
         $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($data['screen']['id']);
-        $data['images'] = $this->images_model->get_images_by_ids($image_ids);
+        $data['selected_images'] = $this->images_model->get_images_by_ids($image_ids);
+        $data['available_images'] = $this->images_model->get_images_not_in_ids($image_ids);
 
         if (empty($data['screen'])) {
             show_404();

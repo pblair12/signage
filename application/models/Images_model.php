@@ -24,6 +24,16 @@ class Images_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_images_not_in_ids($ids) {
+        if (empty($ids)) {
+            return $this->get_images();
+        }
+        $this->db->select('*');
+        $this->db->from('images');
+        $this->db->where_not_in('id', $ids);
+        return $this->db->get()->result_array();
+    }
+
     public function create_image($full_path, $uri_path) {
         $this->load->helper('url');
 
@@ -50,7 +60,7 @@ class Images_model extends CI_Model {
         );
 
         $this->db->where('id', $this->input->post('id'));
-        
+
         return $this->db->update('images', $data);
     }
 

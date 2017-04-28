@@ -66,5 +66,8 @@ $route['images/edit/(:any)'] = 'images/edit/$1';
 $route['images/delete/(:any)'] = 'images/delete/$1';
 $route['images'] = 'images';
 
+$route['images_screens/create/(:any)/(:any)'] = 'images_screens/create/$1/$2';
+$route['images_screens/delete/(:any)/(:any)'] = 'images_screens/delete/$1/$2';
+
 $route['(:any)'] = 'images';
 $route['default_controller'] = 'images';

@@ -6,6 +6,11 @@ class Screens_model extends CI_Model {
         $this->load->model('images_model');
     }
 
+    public function get_screen_slug($id) {
+        $query = $this->db->get_where('screens', array('id' => $id));
+        return $query->row_array()['slug'];
+    }
+
     public function get_screens($slug = FALSE) {
         if ($slug === FALSE) {
             $query = $this->db->get('screens');
