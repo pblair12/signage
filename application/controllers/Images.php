@@ -9,7 +9,7 @@ class Images extends CI_Controller {
 
     public function index() {
         $data['images'] = $this->images_model->get_images();
-        $data['title'] = 'Manage Images';
+        $data['title'] = 'Images';
 
         $this->load->view('templates/header', $data);
         $this->load->view('images/index', $data);
@@ -32,7 +32,7 @@ class Images extends CI_Controller {
     public function edit($slug = NULL) {
         $this->load->helper('form');
 
-        $data['title'] = 'Edit Image';
+        $data['title'] = 'Image Edit';
 
         $data['image'] = $this->images_model->get_images($slug);
 
@@ -55,7 +55,7 @@ class Images extends CI_Controller {
 
         $error = array('error' => '');
         if ($this->form_validation->run() === FALSE) {
-            $error['title'] = 'Edit Image';
+            $error['title'] = 'Image Edit';
             $error['action'] = 'update';
             $this->load->view('templates/header', $data);
             $this->load->view('pages/failed', $error);

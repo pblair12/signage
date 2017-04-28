@@ -11,7 +11,12 @@ class Screens extends CI_Controller {
 
     public function index() {
         $data['screens'] = $this->screens_model->get_screens();
-        $data['title'] = 'Manage Screens';
+        $data['title'] = 'Screens';
+
+        foreach ($data['screens'] as &$screen) {
+            $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($screen['id']);
+            $screen['selected_images'] = $this->images_model->get_images_by_ids($image_ids);
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('screens/index', $data);
@@ -20,7 +25,9 @@ class Screens extends CI_Controller {
 
     public function view($slug = NULL) {
         $data['screen'] = $this->screens_model->get_screens($slug);
-        $data['images'] = $this->images_model->get_images();
+
+        $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($data['screen']['id']);
+        $data['selected_images'] = $this->images_model->get_images_by_ids($image_ids);
 
         $this->load->view('templates/refresh_header');
         $this->load->view('screens/view', $data);
@@ -31,12 +38,13 @@ class Screens extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['title'] = 'Edit Screen';
+        $data['title'] = 'Screen Edit';
 
         $data['screen'] = $this->screens_model->get_screens($slug);
 
         $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($data['screen']['id']);
-        $data['images'] = $this->images_model->get_images_by_ids($image_ids);
+        $data['selected_images'] = $this->images_model->get_images_by_ids($image_ids);
+        $data['available_images'] = $this->images_model->get_images_not_in_ids($image_ids);
 
         if (empty($data['screen'])) {
             show_404();
@@ -53,11 +61,12 @@ class Screens extends CI_Controller {
 
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'integer');
+        $this->form_validation->set_rules('image_cycle_timeout', 'Image Cycle Timeout', 'integer');
         $this->form_validation->set_rules('orientation', 'Orientation', 'in_list[vertical,horizontal]');
 
         $error = array('error' => '');
         if ($this->form_validation->run() === FALSE) {
-            $error['title'] = 'Edit Screen';
+            $error['title'] = 'Screen Edit';
             $error['action'] = 'update';
             $this->load->view('templates/header', $error);
             $this->load->view('pages/failed', $error);
@@ -77,6 +86,7 @@ class Screens extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('orientation', 'Orientation', 'in_list[vertical,horizontal]');
         $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'integer');
+        $this->form_validation->set_rules('image_cycle_timeout', 'Image Cycle Timeout', 'integer');
 
         $error = array('error' => '');
         if ($this->form_validation->run() === FALSE ) {
