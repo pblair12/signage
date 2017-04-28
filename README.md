@@ -65,3 +65,4 @@ find them in the /uploads folder within this project.
 
 1. We are storing whether or not a screen is horizontal or vertical but we are not doing anything with that information
 yet.  Also when editing a screen the orientation should be a dropdown not a text input.
+2. More work could be done on the styling...
