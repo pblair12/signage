@@ -1,8 +1,11 @@
-## Sinage Web App
-
+# Sinage Web App
 #### Clear Edge IT Solutions, LLC
 
-Manages screens and images
+## Description
+
+This is a web application used to manage one or more screens (displays) that can be configured to display one or more
+images.  Users are able to create, edit, delete screens and images.  Screens are configured with the images to display,
+the timeout in milliseconds for showing each image, and the time in milliseconds for transitioning between images.
 
 ## Developer Notes
 
@@ -49,10 +52,16 @@ This app was built using the [PHP CodeIgniter Web Framework](https://codeigniter
 
 ### Drop the database
 
-Note: before you drop the database you should delete any uploaded images.  Use the application to delete the images or find them in the /uploads folder within this project.
+Note: before you drop the database you should delete any uploaded images.  Use the application to delete the images or
+find them in the /uploads folder within this project.
 
     DROP TABLE `images_screens`;
 
     DROP TABLE `images`;
 
     DROP TABLE `screens`;
+
+### To DO
+
+We are storing whether or not a screen is horizontal or vertical but we are not doing anything with that information
+yet.  Also when editing a screen the orientation should be a dropdown not a text input.
