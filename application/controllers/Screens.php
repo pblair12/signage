@@ -61,6 +61,7 @@ class Screens extends CI_Controller {
 
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'integer');
+        $this->form_validation->set_rules('image_cycle_timeout', 'Image Cycle Timeout', 'integer');
         $this->form_validation->set_rules('orientation', 'Orientation', 'in_list[vertical,horizontal]');
 
         $error = array('error' => '');
@@ -85,6 +86,7 @@ class Screens extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('orientation', 'Orientation', 'in_list[vertical,horizontal]');
         $this->form_validation->set_rules('image_cycle_speed', 'Image Cycle Speed', 'integer');
+        $this->form_validation->set_rules('image_cycle_timeout', 'Image Cycle Timeout', 'integer');
 
         $error = array('error' => '');
         if ($this->form_validation->run() === FALSE ) {

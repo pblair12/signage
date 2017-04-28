@@ -29,7 +29,8 @@ class Screens_model extends CI_Model {
             'title' => $this->input->post('title'),
             'slug' => $slug,
             'orientation' => $this->input->post('orientation'),
-            'image_cycle_speed' => $this->input->post('image_cycle_speed')
+            'image_cycle_speed' => $this->input->post('image_cycle_speed'),
+            'image_cycle_timeout' => $this->input->post('image_cycle_timeout')
         );
 
         return $this->db->insert('screens', $data);
@@ -42,7 +43,8 @@ class Screens_model extends CI_Model {
             'title' => $this->input->post('title'),
             'slug' => $this->input->post('slug'),
             'orientation' => $this->input->post('orientation'),
-            'image_cycle_speed' => $this->input->post('image_cycle_speed')
+            'image_cycle_speed' => $this->input->post('image_cycle_speed'),
+            'image_cycle_timeout' => $this->input->post('image_cycle_timeout')
         );
 
         $this->db->where('id', $this->input->post('id'));
