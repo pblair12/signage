@@ -39,11 +39,11 @@ This app was built using the [PHP CodeIgniter Web Framework](https://codeigniter
     );
 
     CREATE TABLE `images_screens` (
-        `image_id` int(11) NOT NULL,
-        `screen_id` int(11) NOT NULL,
-        PRIMARY KEY (image_id, screen_id),
-        FOREIGN KEY (image_id) REFERENCES images(id),
-        FOREIGN KEY (screen_id) REFERENCES screens(id)
+    	`image_id` int(11) NOT NULL,
+    	`screen_id` int(11) NOT NULL,
+    	PRIMARY KEY (image_id, screen_id),
+    	FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE,
+    	FOREIGN KEY (screen_id) REFERENCES screens(id) ON DELETE CASCADE
     );
 
 ### TO DO

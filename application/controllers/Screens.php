@@ -13,6 +13,11 @@ class Screens extends CI_Controller {
         $data['screens'] = $this->screens_model->get_screens();
         $data['title'] = 'Manage Screens';
 
+        foreach ($data['screens'] as &$screen) {
+            $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($screen['id']);
+            $screen['selected_images'] = $this->images_model->get_images_by_ids($image_ids);
+        }
+
         $this->load->view('templates/header', $data);
         $this->load->view('screens/index', $data);
         $this->load->view('templates/footer');
