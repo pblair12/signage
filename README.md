@@ -56,7 +56,3 @@ Note: before you drop the database you should delete any uploaded images.  Use t
     DROP TABLE `images`;
 
     DROP TABLE `screens`;
-
-### TO DO
-1) Associate specific images with specific screens, possibly only allow horizontal images to go on horizontal screens and same for vertical.
-2) Update the app with Clear Edge style sheets.
