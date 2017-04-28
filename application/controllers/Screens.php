@@ -35,11 +35,7 @@ class Screens extends CI_Controller {
 
         $data['screen'] = $this->screens_model->get_screens($slug);
 
-        $images_screens = $this->images_screens_model->get_images_screens_by_screen_id($data['screen']['id']);
-        $image_ids = array();
-        foreach ($images_screens as $image_screen) {
-            array_push($image_ids, $image_screen['image_id']);
-        }
+        $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($data['screen']['id']);
         $data['images'] = $this->images_model->get_images_by_ids($image_ids);
 
         if (empty($data['screen'])) {

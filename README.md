@@ -42,8 +42,8 @@ This app was built using the [PHP CodeIgniter Web Framework](https://codeigniter
         `image_id` int(11) NOT NULL,
         `screen_id` int(11) NOT NULL,
         PRIMARY KEY (image_id, screen_id),
-        FOREIGN KEY (image_id) REFERENCES images(id) ON UPDATE CASCADE,
-        FOREIGN KEY (screen_id) REFERENCES screens(id) ON UPDATE CASCADE
+        FOREIGN KEY (image_id) REFERENCES images(id),
+        FOREIGN KEY (screen_id) REFERENCES screens(id)
     );
 
 ### TO DO

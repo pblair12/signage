@@ -34,14 +34,15 @@ class Screens_model extends CI_Model {
         $this->load->helper('url');
 
         $data = array(
-            'id' => $this->input->post('id'),
             'title' => $this->input->post('title'),
             'slug' => $this->input->post('slug'),
             'orientation' => $this->input->post('orientation'),
             'image_cycle_speed' => $this->input->post('image_cycle_speed')
         );
 
-        return $this->db->replace('screens', $data);
+        $this->db->where('id', $this->input->post('id'));
+
+        return $this->db->update('screens', $data);
     }
 
     public function delete_screen($slug) {

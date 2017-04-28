@@ -16,4 +16,11 @@
 
     <input type="submit" name="submit" value="Update screen item" />
 
+    <?php foreach ($images as $image): ?>
+        <h3><?php echo $image['title']; ?></h3>
+        <div class="main">
+            <img width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
+            <a href="<?= site_url('images_screens/delete/'.$image['id'].'/'.$screen['id']); ?>">Remove</a>
+        </div>
+    <?php endforeach; ?>
 </form>

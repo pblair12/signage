@@ -15,8 +15,13 @@ class Images_model extends CI_Model {
     }
 
     public function get_images_by_ids($ids) {
-        $query = $this->db->get_where('images', array('id' => $ids));
-        return $query->row_array();
+        if (empty($ids)) {
+            return [];
+        }
+        $this->db->select('*');
+        $this->db->from('images');
+        $this->db->where_in('id', $ids);
+        return $this->db->get()->result_array();
     }
 
     public function create_image($full_path, $uri_path) {
@@ -38,14 +43,15 @@ class Images_model extends CI_Model {
         $this->load->helper('url');
 
         $data = array(
-            'id' => $this->input->post('id'),
             'title' => $this->input->post('title'),
             'slug' => $this->input->post('slug'),
             'full_path' => $this->input->post('full_path'),
             'uri_path' => $this->input->post('uri_path')
         );
 
-        return $this->db->replace('images', $data);
+        $this->db->where('id', $this->input->post('id'));
+        
+        return $this->db->update('images', $data);
     }
 
     public function delete_image($slug) {

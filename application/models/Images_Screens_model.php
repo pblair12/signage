@@ -5,14 +5,15 @@ class Images_Screens_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get_images_screens_by_screen_id($screen_id) {
-        $query = $this->db->get_where('images_screens', array('screen_id' => $screen_id));
-        return $query->result_array();
-    }
-
-    public function get_images_screens_by_image_id($image_id) {
-        $query = $this->db->get_where('images_screens', array('image_id' => $screen_id));
-        return $query->result_array();
+    public function get_images_ids_by_screen_id($screen_id) {
+        $this->db->select('image_id');
+        $this->db->from('images_screens');
+        if (!is_null($screen_id)) $this->db->where('screen_id', $screen_id);
+        $image_ids = array();
+        foreach ($this->db->get()->result_array() as $row) {
+            array_push($image_ids, $row['image_id']);
+        }
+        return $image_ids;
     }
 
     public function create_image_screen() {
