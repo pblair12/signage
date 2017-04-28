@@ -17,13 +17,13 @@
     <input type="hidden" name="slug" value="<?php echo $screen['slug']; ?>" /><br />
     <input type="hidden" name="id" value="<?php echo $screen['id']; ?>" />
 
-    <input type="submit" name="submit" value="Update screen item" />
+    <input type="submit" name="submit" value="Update Screen Settings" />
 
     <h3>Available Images</h3>
     <?php foreach ($available_images as $image): ?>
         <label><?php echo $image['title']; ?></label>
         <div class="main">
-            <img width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
+            <img style="max-width: auto; height: 50px" width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
             <a href="<?= site_url('images_screens/create/'.$image['id'].'/'.$screen['id']); ?>">Add</a>
         </div>
     <?php endforeach; ?>
@@ -32,7 +32,7 @@
     <?php foreach ($selected_images as $image): ?>
         <label><?php echo $image['title']; ?></label>
         <div class="main">
-            <img width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
+            <img style="max-width: auto; height: 50px"  width="auto" height="50px" src="<?php echo base_url($image['uri_path']); ?>">
             <a href="<?= site_url('images_screens/delete/'.$image['id'].'/'.$screen['id']); ?>">Remove</a>
         </div>
     <?php endforeach; ?>

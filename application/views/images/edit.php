@@ -1,7 +1,6 @@
 <?php echo validation_errors(); ?>
 
 <?php echo form_open('images/update'); ?>
-
     <label for="title">Title</label>
     <input type="input" name="title" value="<?php echo $image['title']; ?>" /><br />
     <br/>
@@ -14,6 +13,5 @@
     <input type="hidden" name="slug" value="<?php echo $image['slug']; ?>" /><br />
     <input type="hidden" name="id" value="<?php echo $image['id']; ?>" />
 
-    <input type="submit" name="submit" value="Update image item" />
-
+    <input type="submit" name="submit" value="Update Image Settings" />
 </form>

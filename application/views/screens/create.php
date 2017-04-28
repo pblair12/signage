@@ -3,7 +3,6 @@
 <?php echo $error;?>
 
 <?php echo form_open_multipart('screens/create'); ?>
-
     <label for="title">Title</label>
     <input type="input" name="title" /><br />
     <br/>
@@ -21,5 +20,4 @@
     <br/>
     <br/>
     <input type="submit" name="submit" value="Create Screen" />
-    <br/>
 </form>

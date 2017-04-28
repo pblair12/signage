@@ -11,7 +11,7 @@ class Screens extends CI_Controller {
 
     public function index() {
         $data['screens'] = $this->screens_model->get_screens();
-        $data['title'] = 'Manage Screens';
+        $data['title'] = 'Screens';
 
         foreach ($data['screens'] as &$screen) {
             $image_ids = $this->images_screens_model->get_images_ids_by_screen_id($screen['id']);
@@ -38,7 +38,7 @@ class Screens extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['title'] = 'Edit Screen';
+        $data['title'] = 'Screen Edit';
 
         $data['screen'] = $this->screens_model->get_screens($slug);
 
@@ -66,7 +66,7 @@ class Screens extends CI_Controller {
 
         $error = array('error' => '');
         if ($this->form_validation->run() === FALSE) {
-            $error['title'] = 'Edit Screen';
+            $error['title'] = 'Screen Edit';
             $error['action'] = 'update';
             $this->load->view('templates/header', $error);
             $this->load->view('pages/failed', $error);
