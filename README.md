@@ -1,5 +1,5 @@
 # Sinage Web App
-#### Clear Edge IT Solutions, LLC
+*Clear Edge IT Solutions, LLC*
 
 ## Description
 
@@ -52,7 +52,7 @@ This app was built using the [PHP CodeIgniter Web Framework](https://codeigniter
 
 ### Drop the database
 
-Note: before you drop the database you should delete any uploaded images.  Use the application to delete the images or
+**Note:** before you drop the database you should delete any uploaded images.  Use the application to delete the images or
 find them in the /uploads folder within this project.
 
     DROP TABLE `images_screens`;
@@ -63,5 +63,5 @@ find them in the /uploads folder within this project.
 
 ### To DO
 
-We are storing whether or not a screen is horizontal or vertical but we are not doing anything with that information
+1. We are storing whether or not a screen is horizontal or vertical but we are not doing anything with that information
 yet.  Also when editing a screen the orientation should be a dropdown not a text input.
